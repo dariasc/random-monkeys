@@ -10,28 +10,40 @@
 		return await verify(data.hashes.map(obj => {return obj.hash}), rut, salt);
 	}
 
+	async function verifyWin(rut: string, salt: string) {
+		return await verify(data.winners.map(obj => {return obj.hash}), rut, salt);
+	}
+
 	let rut = '';
 	let salt = '';
 	// let verificationResult: string | null = null;
 	// boolean
 	let verificationRun: boolean = false;
 	let verificationResult: boolean = false;
+	let didWinRun: boolean = false;
+	let didWinResult: boolean = false;
 
 	async function handleVerify() {
 		verificationRun = true;
 		if (rut && salt) {
 			const result = await verifyParticipation(rut, salt);
-			// verificationResult = result ? "Participación verificada con éxito." : "Verificación fallida. Por favor revisa tus datos.";
+			if (data.winners.length > 0) {
+				await handleDidWin()
+			}
 			verificationResult = result;
 		} else {
-			// verificationResult = "Por favor ingrese RUT y Salt.";
 			verificationResult = false;
 		}
+	}
+
+	async function handleDidWin() {
+		didWinRun = true
+		didWinResult = await verifyWin(rut, salt)
 	}
 </script>
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
-	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full">
+	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full space-y-8">
 		{#if new Date(data.countdownDate).getTime() - Date.now()  > 0}
 			<CountDown countdownDate={data.countdownDate} />
 		{:else}
@@ -44,7 +56,7 @@
 		<div class="flex items-center justify-center mb-6 space-x-4">
             <input
                 type="text"
-                placeholder="RUT"
+                placeholder="Identificador"
 				bind:value={rut}
                 class="p-2 border border-gray-300 rounded-md w-1/2"
             />
@@ -70,11 +82,30 @@
 					Verificación fallida. Por favor revisa tus datos.
 				{/if}
 			</p>
+			{#if didWinRun && verificationResult}
+				<p class="text-xl font-bold mb-6 text-gray-600 rounded-lg p-4" class:bg-green-100={didWinResult} class:bg-red-100={!didWinResult}>
+					{#if didWinResult}
+						Has sido seleccionado!
+					{:else}
+						No fuiste seleccionado.
+					{/if}
+				</p>
+			{/if}
 		{/if}
+		
 
-		<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+		<div>
+			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+			<HashGrid hashes={data.hashes} />
+		</div>
 
-		<HashGrid hashes={data.hashes} />
+
+        {#if data.winners.length > 0}
+        <div>
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
+            <HashGrid hashes={data.winners} />      
+        </div>
+        {/if}
 	</div>
 </main>
 
