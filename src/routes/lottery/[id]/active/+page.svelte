@@ -1,10 +1,11 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import HashGrid from '$lib/components/HashGrid.svelte';
 	// import { verify } from '$lib/crypto';
 
 	export let data: PageData;
 
-	// const hashes: string[] = []
+	const hashes: string[] = []
 
 	function random256BitsHexadecimal() {
 		//todo: recordar pasar esto ordenadamente
@@ -12,13 +13,13 @@
 	}
 
 	// for testing only!!
-	// for (let i = 0; i < 11; i++) {
-	// 	hashes.push(random256BitsHexadecimal());
-	// }
+	for (let i = 0; i < 11; i++) {
+		hashes.push(random256BitsHexadecimal());
+	}
 
-	// function verifyParticipation(rut: string, salt: string) {
-	// 	return verify(hashes, rut, salt);
-	// }
+	function verifyParticipation(rut: string, salt: string) {
+		return verify(hashes, rut, salt);
+	}
 
 	const countdownDate = new Date().getTime() + (23 * 60 * 60 * 1000);
 	let countdownTime = "Cargando...";
@@ -75,11 +76,6 @@
 
 		<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
 
-		<div class="grid grid-cols-3 gap-3 w-full">
-			{#each { length: 11 } as _, i}
-				<pre
-					class="flex items-center justify-center p-4 bg-blue-100 rounded text-blue-800 w-full">{random256BitsHexadecimal()}</pre>
-			{/each}
-		</div>
+		<HashGrid hashes={hashes} />
 	</div>
 </main>
