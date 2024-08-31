@@ -29,11 +29,11 @@ export class MonkeyBox {
         return new MonkeyBox(row.id, Privacy[privacy], row.publish_at);
     }
 
-    public static create(privacy: Privacy, publishAt: EpochTimeStamp) {
+    public static create(name: String, privacy: Privacy, winners: number, publishAt: EpochTimeStamp) {
         let id = randomUUID();
 
-        const stmt = db.prepare('INSERT INTO `monkey_box`(`id`, `privacy`, `publish_at`) VALUES (?,?,?)');
-        const result = stmt.run(id, privacy.toString(), publishAt);
+        const stmt = db.prepare('INSERT INTO `monkey_box`(`id`, `name`, `privacy`, `winners`, `publish_at`) VALUES (?,?,?,?,?)');
+        const result = stmt.run(id, name, privacy.toString(), winners, publishAt);
     
         return new MonkeyBox(id, privacy, publishAt);
     }
