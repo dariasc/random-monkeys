@@ -76,15 +76,3 @@ export class User {
         return new User(row.key, UserType[row.type as keyof typeof UserType], box);
     }
 }
-
-        if (row == undefined)
-            return undefined;
-
-        const hash = row.password;
-        if (await compare(password, hash)) {
-            return new User(row.id, row.username, row.password);
-        }
-
-        return undefined;
-    }
-}
