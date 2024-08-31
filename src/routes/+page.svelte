@@ -57,7 +57,7 @@
 					name="offsetHours"
 					type="number"
 					bind:value={selectedOffsetHours}
-					class="border border-gray-300 rounded-lg py-2 px-4 text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+					class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white custom-width"
 					min="0"
 					required
 				/>
@@ -70,7 +70,7 @@
 					name="offsetMinutes"
 					type="number"
 					bind:value={selectedOffsetMinutes}
-					class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 custom-width"
 					min="0"
 					max="59"
 					required
@@ -116,5 +116,9 @@
 <style>
 	.gif {
 		vertical-align: middle;
+	}
+
+	.custom-width {
+		width: 120px; /* Or whatever width you want */
 	}
 </style>
