@@ -31,7 +31,7 @@
 </script>
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
-	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full">
+	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full space-y-8">
 		{#if new Date(data.countdownDate).getTime() - Date.now()  > 0}
 			<CountDown countdownDate={data.countdownDate} />
 		{:else}
@@ -72,9 +72,18 @@
 			</p>
 		{/if}
 
-		<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+		<div>
+			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+			<HashGrid hashes={data.hashes} />
+		</div>
 
-		<HashGrid hashes={data.hashes} />
+
+        {#if data.winners.length > 0}
+        <div>
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
+            <HashGrid hashes={data.winners} />      
+        </div>
+        {/if}
 	</div>
 </main>
 
