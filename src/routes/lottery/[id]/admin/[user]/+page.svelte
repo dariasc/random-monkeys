@@ -6,7 +6,7 @@
 	export let data: PageData;
 
     function observerLink() {
-        return `http://localhost:5173/lottery/${data.id}/admin/${data.observer}`
+        return `${window.location.origin}/lottery/${data.id}/admin/${data.observer}`
     }
 
     function copyObserver() {
