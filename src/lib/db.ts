@@ -6,7 +6,7 @@ db.exec(`
 CREATE TABLE \`monkey_box\` (
     \`id\` TEXT PRIMARY KEY,
     \`privacy\` TEXT CHECK(\`privacy\` IN ('Public', 'SemiPrivate', 'Private')) NOT NULL,
-    \`publish_at\` INTEGER CHECK(current_timestamp < \`publish_at\`) NOT NULL
+    \`publish_at\` INTEGER NOT NULL
 );
 
 CREATE TABLE \`user\` (
@@ -22,8 +22,7 @@ CREATE TABLE \`monkey\` (
     \`value\` TEXT NOT NULL,
     \`hash\` TEXT NOT NULL,
     \`weight\` FLOAT NOT NULL DEFAULT 1,
-    FOREIGN KEY(\`box\`) REFERENCES \`monkey_box\`(\`id\`),
-    PRIMARY KEY (\`box\`, \`value\`)  
+    FOREIGN KEY(\`box\`) REFERENCES \`monkey_box\`(\`id\`)
 );
 
 CREATE TABLE \`monkey_secrets\` (

@@ -45,7 +45,7 @@ export enum UserType {
 }
 
 export class User {
-    private key: UUID;
+    public key: UUID;
     public type: UserType;
     public box: MonkeyBox;
 
