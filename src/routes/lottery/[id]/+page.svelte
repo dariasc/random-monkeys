@@ -57,6 +57,13 @@
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
 	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full space-y-8">
+		<div>
+            <div class="text-3xl font-bold text-blue-600 mb-2 flex flex-row justify-center space-x-2">
+                <h2>Sorteo:</h2>
+                <h2 class="font-normal text-blue-500">{data.name}</h2>
+            </div>
+        </div>
+		
 		{#if new Date(data.publishAt).getTime() - Date.now()  > 0}
 			<CountDown countdownDate={data.publishAt} />
 		{:else}

@@ -21,11 +21,21 @@
         document.body.removeChild(link);
     }
 
+    function publicLink() {
+        if (typeof window !== "undefined") {
+            return `${window.location.origin}/lottery/${data.id}`
+        }
+        return ""
+    }
+
     function observerLink() {
         if (typeof window !== "undefined") {
             return `${window.location.origin}/lottery/${data.id}/admin/${data.observer}`
         }
         return ""
+    }
+    function copyPublicLink() {
+        navigator.clipboard.writeText(publicLink())
     }
 
     function copyObserver() {
@@ -48,6 +58,17 @@
 			<h2 class="text-xl font-bold text-blue-600 mb-2">Se usó el faro de {data.faro}</h2>
 		{/if}
         
+        <div class="space-y-2">
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Link Publico</h2>
+            <div class="grid grid-cols-1 gap-3 w-full">
+                <button
+                    on:click={copyPublicLink}
+                    class="hover:bg-blue-200 flex items-center justify-center p-4 bg-blue-100 rounded text-blue-800 w-full">
+                    {publicLink()}
+                </button>
+            </div>
+        </div>
+
         {#if data.isAdmin}
         <div class="space-y-2">
             <h2 class="text-2xl font-bold text-blue-600 mb-2">Observador</h2>
