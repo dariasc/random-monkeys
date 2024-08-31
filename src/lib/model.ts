@@ -122,22 +122,22 @@ export class Monkey {
 
 export class MonkeySecrets {
     public monkey: Monkey;
-    public hash: String;
+    public salt: String;
 
-    private constructor(monkey: Monkey, hash: String) {
+    private constructor(monkey: Monkey, salt: String) {
         this.monkey = monkey;
-        this.hash = hash;
+        this.salt = salt;
     }
 
-    public static create(monkey: Monkey, hash: String) {
-        const stmt = db.prepare('INSERT INTO `monkey_secrets`(`monkey`, `hash`) VALUES (?,?)');
-        const result = stmt.run(monkey.id, hash);
-        return new MonkeySecrets(monkey, hash);
+    public static create(monkey: Monkey, salt: String) {
+        const stmt = db.prepare('INSERT INTO `monkey_secrets`(`monkey`, `salt`) VALUES (?,?)');
+        const result = stmt.run(monkey.id, salt);
+        return new MonkeySecrets(monkey, salt);
     }
 
     public static get(monkey: Monkey) {
-        const stmt = db.prepare('SELECT * FROM `monkey_secrets` WHERE `id` = ?');
+        const stmt = db.prepare('SELECT * FROM `monkey_secrets` WHERE `monkey` = ?');
         const row: any = stmt.get(monkey.id);
-        return new MonkeySecrets(monkey, row.hash);
+        return new MonkeySecrets(monkey, row.salt);
     }
 }
