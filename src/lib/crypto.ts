@@ -26,4 +26,9 @@ function hashUser(id: string, salt: string) {
   return hash.digest('hex')
 }
 
-export { hashUser, generateHashes }
+function verify(hashes: string[], id: string, salt: string) {
+  const hash = hashUser(id, salt)
+  return hashes.includes(hash)
+}
+
+export { hashUser, generateHashes, verify }
