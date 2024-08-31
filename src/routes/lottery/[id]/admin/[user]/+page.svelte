@@ -38,11 +38,11 @@
         <div>
             <div class="text-3xl font-bold text-blue-600 mb-2 flex flex-row justify-center space-x-2">
                 <h2>Sorteo:</h2>
-                <h2 class="font-normal text-blue-500">$nombre</h2>
+                <h2 class="font-normal text-blue-500">{data.name}</h2>
             </div>
         </div>
 
-        <CountDown />
+        <CountDown countdownDate={data.publishAt} />
         
         {#if data.isAdmin}
         <div class="space-y-2">

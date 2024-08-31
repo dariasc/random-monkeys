@@ -7,27 +7,30 @@
         timeZoneName: "short"
     });
 
-    const countdownFunction = setInterval(function() {
-        const now = new Date().getTime();
-        const distance = countdownDate - now;
+    const distance = countdownDate - new Date().getTime();
+    if (distance > 0) {
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
 
-        if (distance < 0) {
-            clearInterval(countdownFunction);
-            if(typeof window !== 'undefined') window.location.reload();
-            return;
-        }
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                if(typeof window !== 'undefined') window.location.reload();
+                return;
+            }
 
-		const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-		countdownTime =
-			(days > 0 ? days + "d " : "") +
-			("0" + hours).slice(-2) + "h " +
-			("0" + minutes).slice(-2) + "m " +
-			("0" + seconds).slice(-2) + "s";
-    }, 1);
+            countdownTime =
+                (days > 0 ? days + "d " : "") +
+                ("0" + hours).slice(-2) + "h " +
+                ("0" + minutes).slice(-2) + "m " +
+                ("0" + seconds).slice(-2) + "s";
+        }, 1);
+    }
 </script>
 
 <div>
