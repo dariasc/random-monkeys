@@ -98,9 +98,9 @@ export class Monkey {
 
     public static create(box: MonkeyBox, value: String, hash: String, weight: Number = 1) : Monkey {
         let id = randomUUID();
-        const stmt = db.prepare('INSERT INTO `monkey`(`box`, `value`, `weight`) VALUES (?,?,?)');
+        const stmt = db.prepare('INSERT INTO `monkey`(`id`, `box`, `value`, `hash`, `weight`) VALUES (?,?,?,?,?)');
 
-        stmt.run(id, box.id, value, weight);
+        stmt.run(id, box.id, value, hash, weight);
 
         return new Monkey(id, box, value, hash, weight);
     }
