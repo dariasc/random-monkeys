@@ -6,7 +6,10 @@
 	export let data: PageData;
 
     function observerLink() {
-        return `${window.location.origin}/lottery/${data.id}/admin/${data.observer}`
+        if (typeof window !== "undefined") {
+            return `${window.location.origin}/lottery/${data.id}/admin/${data.observer}`
+        }
+        return ""
     }
 
     function copyObserver() {
@@ -14,7 +17,7 @@
     }
 </script>
 
-<main class="bg-gray-100 flex items-center justify-center min-h-screen">
+<main class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
     <div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full space-y-6">
         <div>
             <div class="text-3xl font-bold text-blue-600 mb-2 flex flex-row justify-center space-x-2">
