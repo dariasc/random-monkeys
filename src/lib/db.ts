@@ -20,6 +20,7 @@ CREATE TABLE \`monkey\` (
     \'id\' TEXT PRIMARY KEY,
     \`box\` TEXT NOT NULL,
     \`value\` TEXT NOT NULL,
+    \`hash\` TEXT NOT NULL,
     \`weight\` FLOAT NOT NULL DEFAULT 1,
     FOREIGN KEY(\`box\`) REFERENCES \`monkey_box\`(\`id\`),
     PRIMARY KEY (\`box\`, \`value\`)  
@@ -29,12 +30,6 @@ CREATE TABLE \`monkey_secrets\` (
     \`monkey\` TEXT NOT NULL,
     \`salt\` TEXT NOT NULL,
     FOREIGN KEY(\`monkey\`) REFERENCES \`monkey\`(\`id\`)
-);
-
-CREATE TABLE \`monkey_hashes\` (
-    \`monkey\` TEXT NOT NULL,
-    \`hash\` TEXT NOT NULL,
-    FOREIGN KEY (\`monkey\`) REFERENCES \`monkey\`(\`id\`)
 );
 `);
 
