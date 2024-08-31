@@ -130,7 +130,7 @@ export class MonkeySecrets {
     }
 
     public static create(monkey: Monkey, hash: String) {
-        const stmt = db.prepare('INSERT INTO `monkey_secrets`(`id`, `hash`) VALUES (?,?)');
+        const stmt = db.prepare('INSERT INTO `monkey_secrets`(`monkey`, `hash`) VALUES (?,?)');
         const result = stmt.run(monkey.id, hash);
         return new MonkeySecrets(monkey, hash);
     }
