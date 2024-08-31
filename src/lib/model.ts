@@ -76,3 +76,24 @@ export class User {
         return new User(row.key, UserType[row.type as keyof typeof UserType], box);
     }
 }
+
+export class Monkey {
+    public box : MonkeyBox;
+    public value : String;
+    public weight : Number;
+
+    private constructor(id: UUID, box: MonkeyBox, value: String, weight: Number = 1) {
+        this.id = id;
+        this.box = box;
+        this.value = value;
+        this.weight = weight;
+    }
+
+    public static create(box: MonkeyBox, value: String, weight: Number = 1) {
+        const stmt = db.prepare('INSERT INTO `monkey`(`box`, `value`, `weight`) VALUES (?,?,?)');
+
+        stmt.run(box.id, value, weight);
+
+        return new Monkey(value, box, weight);
+    }
+}

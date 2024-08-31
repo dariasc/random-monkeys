@@ -17,6 +17,7 @@ CREATE TABLE \`user\` (
 );
 
 CREATE TABLE \`monkey\` (
+    \'id\' TEXT PRIMARY KEY,
     \`box\` TEXT NOT NULL,
     \`value\` TEXT NOT NULL,
     \`weight\` FLOAT NOT NULL DEFAULT 1,
