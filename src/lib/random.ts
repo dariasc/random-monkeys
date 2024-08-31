@@ -5,6 +5,7 @@ export async function getPulse(unix_time: number) {
   try {
     const response = await fetch('https://random.uchile.cl/beacon/2.1-beta/pulse?timeGE='+String(unix_time));
     const data = await response.json();
+    console.log(data)
     const pulse: string = data['pulse']['outputValue'];
     const timestamp = data['pulse']['timeStamp'];
     const date = new Date(unix_time).toISOString();

@@ -20,7 +20,7 @@ function splitmix32(a: number) {
   }
 }
 
-function chooseHashes(seed: string, hashes: string[], k: number) {
+function chooseHashes(seed: string, hashes: any[], k: number) {
   hashes.sort()
   const seedNumber = parseInt(seed.slice(0, 8), 16)
   const prng = splitmix32(seedNumber)

@@ -33,6 +33,7 @@
     }
 </script>
 
+{#if distance > 0}
 <div>
     <h1 id="countdown" class="text-5xl font-bold text-blue-600 mb-2">{countdownTime}</h1>
 
@@ -40,3 +41,4 @@
         Termina: <span id="raffle-end-date">{endDateFormatted}</span>
     </p>
 </div>
+{/if}
