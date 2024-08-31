@@ -12,7 +12,6 @@
     function copyObserver() {
         navigator.clipboard.writeText(observerLink())
     }
-    console.log(data.winners)
 </script>
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen">
