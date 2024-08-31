@@ -18,7 +18,9 @@ export const load: PageServerLoad = async ({ params }) => {
     const publishAt = monkeyBox.publishAt*1000
     let winners: { id?: string, salt?: string, hash: string }[] = []
     if (Date.now() >= publishAt) {
-        const pulse = await getPulse(publishAt-60000)
+        const faro = await getPulse(monkeyBox.publishAt * 1000);
+        const pulse = faro?.pulso;
+        const fecha = faro?.fecha;
         if (pulse) {
             winners = chooseHashes(
                 pulse,

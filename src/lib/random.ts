@@ -15,13 +15,19 @@ export async function getPulse(unix_time: number) {
 
     if(prefix1 === prefix2){
         if (typeof pulse === 'string' && pulse != ''){
-            return pulse;
+            return {
+              pulso: pulse,
+              fecha: timestamp,
+            }
         } else {
             console.log('pulse not found');
         }
     } else {
         if (typeof pulse === 'string' && pulse != ''){
-            return pulse;
+            return {
+              pulso: pulse,
+              fecha: timestamp,
+            }
         } else {
             console.log('pulse time does not match asked time');
         }
