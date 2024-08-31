@@ -61,7 +61,7 @@
         {#if data.winners.length > 0}
         <div>
             <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
-            <HashGrid hashes={data.winners} />      
+            <HashGrid hashes={data.winners} color='green' />      
         </div>
         {/if}
 
