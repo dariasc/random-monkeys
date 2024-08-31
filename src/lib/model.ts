@@ -12,11 +12,16 @@ export enum Privacy {
 
 export class MonkeyBox {
     public id: UUID;
+    public name: String;
+    public winners: Number;
     public privacy: Privacy;
     public publishAt: EpochTimeStamp;
 
-    private constructor(id: UUID, privacy: Privacy, publishAt: EpochTimeStamp) {
+
+    private constructor(id: UUID, name: String, privacy: Privacy, winners: Number, publishAt: EpochTimeStamp) {
         this.id = id;
+        this.name = name;
+        this.winners = winners;
         this.privacy = privacy;
         this.publishAt = publishAt;
     }
@@ -26,7 +31,7 @@ export class MonkeyBox {
         const row: any = stmt.get(id.toLowerCase());
         
         const privacy : keyof typeof Privacy = row.privacy;
-        return new MonkeyBox(row.id, Privacy[privacy], row.publish_at);
+        return new MonkeyBox(row.id, row.name, Privacy[privacy], row.winners, row.publish_at);
     }
 
     public static create(name: String, privacy: Privacy, winners: number, publishAt: EpochTimeStamp) {
@@ -35,7 +40,7 @@ export class MonkeyBox {
         const stmt = db.prepare('INSERT INTO `monkey_box`(`id`, `name`, `privacy`, `winners`, `publish_at`) VALUES (?,?,?,?,?)');
         const result = stmt.run(id, name, privacy.toString(), winners, publishAt);
     
-        return new MonkeyBox(id, privacy, publishAt);
+        return new MonkeyBox(id, name, privacy, winners, publishAt);
     }
 }
 
