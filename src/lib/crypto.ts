@@ -1,8 +1,3 @@
-import {
-  createHash,
-  randomBytes
-} from 'crypto';
-
 function splitmix32(a: number) {
   return function() {
     a |= 0;
@@ -30,8 +25,9 @@ function chooseHashes(seed: string, hashes: string[], k: number) {
 }
 
 function generateSalt() {
-  const salt = randomBytes(64)
-  return salt.toString('hex')
+  const array = new Uint8Array(8);
+  const salt = crypto.getRandomValues(array)
+  return Buffer.from(salt).toString('hex')
 }
 
 function generateHashes(ids: string[]) {
@@ -46,14 +42,14 @@ function generateHashes(ids: string[]) {
   })
 }
 
-function hashUser(id: string, salt: string) {
-  const hash = createHash('sha256')
-  hash.update(id + salt)
-  return hash.digest('hex')
+async function hashUser(id: string, salt: string) {
+  const msg = new TextEncoder().encode(id + salt)
+  const hash = await crypto.subtle.digest("SHA-256", msg)
+  return Buffer.from(hash).toString("hex")
 }
 
-function verify(hashes: string[], id: string, salt: string) {
-  const hash = hashUser(id, salt)
+async function verify(hashes: string[], id: string, salt: string) {
+  const hash = await hashUser(id, salt)
   return hashes.includes(hash)
 }
 
