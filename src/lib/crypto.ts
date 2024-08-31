@@ -34,10 +34,14 @@ function chooseHashes(seed: string, hashes: string[], k: number) {
   return hashes.slice(0, k)
 }
 
-function generateSalt() {
-  const array = new Uint8Array(8);
+function randomHex(length: number) {
+  const array = new Uint8Array(Math.floor(length/2));
   const salt = crypto.getRandomValues(array)
   return arrayBufferToHex(salt)
+}
+
+function generateSalt() {
+  return randomHex(16)
 }
 
 async function generateHashes(ids: string[]) {
