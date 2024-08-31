@@ -99,7 +99,7 @@
 				on:input={autoResize}
 				id="ids"
 				name="ids"
-				placeholder="IDs de Participantes (uno por línea)"
+				placeholder="Identificadores de Participantes (uno por línea)"
 				class="p-2 border border-gray-300 rounded-md w-full h-auto"
 				required
 			/>

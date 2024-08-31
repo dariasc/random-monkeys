@@ -112,9 +112,16 @@
         {/if}
 
 		<div>
-			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes</h2>
 			<HashGrid hashes={data.hashes} />
 		</div>
+
+		{#if data.ids.length > 0}
+        <div>
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Identificadores</h2>
+            <HashGrid hashes={data.ids} color='red' />      
+        </div>
+        {/if}
 
         <div class="p-3">
             <button 

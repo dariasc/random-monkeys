@@ -8,6 +8,7 @@ export const load: PageServerLoad = async ({ params }) => {
     const monkeyBox = MonkeyBox.get(params.id as UUID)
     const monkeys = Monkey.getAll(monkeyBox)
     let hashes;
+    let ids = [];
     if(monkeyBox.privacy === 'Public'){
         hashes = monkeys.map((monkey) => {
             return {
@@ -17,9 +18,13 @@ export const load: PageServerLoad = async ({ params }) => {
             }
         })
     } else if(monkeyBox.privacy === 'SemiPrivate'){
-        hashes = monkeys.map((monkey) => {
+        ids = monkeys.map((monkey) => {
             return {
                 id: monkey.value,
+            }
+        })
+        hashes = monkeys.map((monkey) => {
+            return {
                 hash: monkey.hash as string,
             }
         })
@@ -45,13 +50,24 @@ export const load: PageServerLoad = async ({ params }) => {
             )
         }
     }
+
+    function shuffleArray(array: any[]) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+    shuffleArray(ids)
+    shuffleArray(hashes)
+    
     return {
         id: params.id,
         name: monkeyBox.name,
         isAdmin: true,
         observer: params.user,
         hashes: hashes,
-        winners: winners,
+        winners: winners.map((obj) => ({hash: obj.hash})),
+        ids: ids.map((obj) => ({hash: obj.id})),
         winnersCount: monkeyBox.winners as number,
         publishAt: publishAt
     }
