@@ -42,7 +42,11 @@
             </div>
         </div>
 
-        <CountDown countdownDate={data.publishAt} />
+        {#if new Date(data.publishAt).getTime() - Date.now()  > 0}
+			<CountDown countdownDate={data.publishAt} />
+		{:else}
+			<h2 class="text-xl font-bold text-blue-600 mb-2">Se usó el faro de {data.faro}</h2>
+		{/if}
         
         {#if data.isAdmin}
         <div class="space-y-2">
