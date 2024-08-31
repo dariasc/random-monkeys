@@ -32,7 +32,11 @@
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen">
 	<div class="text-center p-6 bg-white shadow-lg max-w-3xl rounded-lg w-full">
-		<CountDown countdownDate={data.countdownDate}/>
+		{#if new Date(data.countdownDate).getTime() - Date.now()  > 0}
+			<CountDown countdownDate={data.countdownDate} />
+		{:else}
+			<p>Este sorteo ya ocurrió</p>
+		{/if}
 
 
 		<h2 class="text-2xl font-bold text-blue-600 mb-2">Verifica tu participación:</h2>
