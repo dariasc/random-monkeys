@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let hashes: { id: string, salt: string, hash: string }[] = [];
+	export let hashes: { id?: string, salt?: string, hash: string }[] = [];
 </script>
 
 <div class="grid grid-cols-3 gap-3 w-full">
@@ -9,12 +9,12 @@
 			{#if hash.salt || hash.id}
 				<div class="flex flex-col items-start w-full">
 					{#if hash.id}
-						<div><strong>ID: </strong>{hash.id}</div>
+					<div><strong>Identifier: </strong>{hash.id}</div>
 					{/if}
 					{#if hash.salt}
-						<div><strong>Salt: </strong>{hash.salt}</div>
+					<div><strong>Salt: </strong>{hash.salt}</div>
 					{/if}
-						<div><strong>Hash: </strong>{hash.hash.slice(0, 16)}</div>
+					<div><strong>Hash: </strong>{hash.hash.slice(0, 16)}</div>
 				</div>
 			{:else}
 				<div>{hash.hash.slice(0, 16)}</div>
