@@ -6,7 +6,7 @@ db.exec(`
 CREATE TABLE \`monkey_box\` (
     \`id\` TEXT PRIMARY KEY,
     \`privacy\` TEXT CHECK(\`privacy\` IN ('Public', 'SemiPrivate', 'Private')) NOT NULL,
-    \`publish_at\` INTEGER CHECK(current_timestamp < \`publish_at\`) NOT NULL,
+    \`publish_at\` INTEGER CHECK(current_timestamp < \`publish_at\`) NOT NULL
 );
 
 CREATE TABLE \`user\` (
