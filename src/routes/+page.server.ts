@@ -48,7 +48,7 @@ export const actions = {
 
         const admin = User.create(UserType.Admin, mbox);
 
-        redirect(303, "/lottery/" + mbox.id + "?key=" + admin.key);
+        redirect(303, "/lottery/" + mbox.id + "/admin/" + admin.key);
 
         return {
             success: true,
