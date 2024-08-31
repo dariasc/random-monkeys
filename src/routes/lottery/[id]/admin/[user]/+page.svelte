@@ -12,6 +12,7 @@
     function copyObserver() {
         navigator.clipboard.writeText(observerLink())
     }
+    console.log(data.winners)
 </script>
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -43,5 +44,12 @@
             <h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes</h2>
             <HashGrid hashes={data.hashes} />      
         </div>
+
+        {#if data.winners.length > 0}
+        <div>
+            <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
+            <HashGrid hashes={data.winners} />      
+        </div>
+        {/if}
 	</div>
 </main>
