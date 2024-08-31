@@ -4,6 +4,9 @@
 	let selectedDate = '';
 	let selectedTime = '';
 
+	let selectedOffsetHours = 0; // Initialize offset hours
+	let selectedOffsetMinutes = 0; // Initialize offset minutes
+
 	function autoResize(event) {
 		const textarea = event.target;
 		textarea.style.height = 'auto';
@@ -45,31 +48,32 @@
 			/>
 		</div>
 
-		<div class="flex justify-between gap-4">
-			<div class="flex gap-4">
-				<div>
-					<label for="date-input" class="block text-blue-500 mb-1">Fecha:</label>
-					<input
-						id="date-input"
-						name="date"
-						type="date"
-						bind:value={selectedDate}
-						class="border border-gray-300 rounded-lg py-2 px-4 text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-						required
-					/>
-				</div>
+		<div class="flex justify-center gap-4">
+			<div>
+				<label for="offset-hours" class="block text-blue-500 mb-1">Offset Hours:</label>
+				<input
+					id="offset-hours"
+					name="offsetHours"
+					type="number"
+					bind:value={selectedOffsetHours}
+					class="border border-gray-300 rounded-lg py-2 px-4 text-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+					min="0"
+					required
+				/>
+			</div>
 
-				<div>
-					<label for="time-input" class="block text-blue-500 mb-1">Hora:</label>
-					<input
-						id="time-input"
-						name="time"
-						type="time"
-						bind:value={selectedTime}
-						class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
-						required
-					/>
-				</div>
+			<div>
+				<label for="offset-minutes" class="block text-blue-500 mb-1">Offset Minutes:</label>
+				<input
+					id="offset-minutes"
+					name="offsetMinutes"
+					type="number"
+					bind:value={selectedOffsetMinutes}
+					class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					min="0"
+					max="59"
+					required
+				/>
 			</div>
 		</div>
 
