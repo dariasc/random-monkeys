@@ -19,7 +19,11 @@ export async function getPulse(unix_time: number) {
             console.log('pulse not found');
         }
     } else {
-        console.log('pulse time does not match asked time');
+        if (typeof pulse === 'string' && pulse != ''){
+            return pulse;
+        } else {
+            console.log('pulse time does not match asked time');
+        }
     }
 
   } catch (err) {
