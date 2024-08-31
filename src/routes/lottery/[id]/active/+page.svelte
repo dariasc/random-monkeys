@@ -5,9 +5,13 @@
 
 	export let data: PageData;
 
-	const hashes: string[] = []
+	const hashes = []
 
-	hashes.push("79c0ec3c19256af1bcaf6c4641bf77f1b45c3585ec1ba45cce4a15ab32ca9723");
+	hashes.push({
+		hash: "79c0ec3c19256af1bcaf6c4641bf77f1b45c3585ec1ba45cce4a15ab32ca9723",
+		salt: "testest",
+		id: "gamer"
+	});
 
 	function random256BitsHexadecimal() {
 		//todo: recordar pasar esto ordenadamente
@@ -20,7 +24,9 @@
 
 	// for testing only!!
 	for (let i = 0; i < 11; i++) {
-		hashes.push(random256BitsHexadecimal());
+		hashes.push({
+			hash: random256BitsHexadecimal()
+		});
 	}
 
 	async function verifyParticipation(rut: string, salt: string) {
@@ -77,7 +83,7 @@
 </script>
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen">
-	<div class="text-center p-6 bg-white shadow-lg max-w-xl rounded-lg w-full">
+	<div class="text-center p-6 bg-white shadow-lg max-w-3xl rounded-lg w-full">
 		<h1 id="countdown" class="text-5xl font-bold text-blue-600 mb-2">{countdownTime}</h1>
 
 		<p class="text-sm text-gray-500 mb-6">
