@@ -41,7 +41,7 @@ function generateSalt() {
 }
 
 async function generateHashes(ids: string[]) {
-  return ids.map(async (id) => {
+  const promises = ids.map(async (id) => {
     const salt = generateSalt()
     const hash = await hashUser(id, salt)
     return {
@@ -50,6 +50,7 @@ async function generateHashes(ids: string[]) {
       hash
     }
   })
+  return Promise.all(promises)
 }
 
 async function hashUser(id: string, salt: string) {
