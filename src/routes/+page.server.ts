@@ -1,3 +1,6 @@
+// redirect
+import { redirect } from "@sveltejs/kit";
+
 export const actions = {
     create: async ({ request }) => {
         const formData = await request.formData();
@@ -6,11 +9,15 @@ export const actions = {
         const parsedIds = ids.filter((id) => id.trim() !== "");
         const idsSet = new Set(parsedIds);
         console.log(idsSet);
+        
+
+        // todo await bdd redirigir meme
+    
+        redirect(303, "/alsjfhj");
+
+
         return {
-            status: 200,
-            body: {
-                ids: Array.from(idsSet),
-            },
+            success: true,
         }
     },
 };
