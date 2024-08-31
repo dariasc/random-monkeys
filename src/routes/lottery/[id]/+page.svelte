@@ -6,6 +6,19 @@
 
 	export let data: PageData;
 
+	function downloadCSV(): void {
+        const csvContent = "data:text/csv;charset=utf-8,"
+        + data.hashes.map(hash => `${hash.hash}`).join("\n");
+
+        const link = document.createElement("a");
+        link.setAttribute("href", encodeURI(csvContent));
+        link.setAttribute("download", "hashes.csv");
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
 	async function verifyParticipation(rut: string, salt: string) {
 		return await verify(data.hashes.map(obj => {return obj.hash}), rut, salt);
 	}
@@ -99,13 +112,19 @@
 			<HashGrid hashes={data.hashes} />
 		</div>
 
-
         {#if data.winners.length > 0}
         <div>
             <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
             <HashGrid hashes={data.winners} />      
         </div>
         {/if}
+        <div class="p-3">
+            <button 
+                on:click={downloadCSV}
+                class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Descargar hashes en .csv
+            </button>
+        </div>
 	</div>
 </main>
 
