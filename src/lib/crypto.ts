@@ -68,4 +68,4 @@ async function verify(hashes: string[], id: string, salt: string) {
   return hashes.includes(hash)
 }
 
-export { hashUser, generateHashes, verify, chooseHashes }
+export { hashUser, generateHashes, verify, chooseHashes, randomHex }
