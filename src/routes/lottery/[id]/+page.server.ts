@@ -34,22 +34,23 @@ export const load: PageServerLoad = async ({ params }) => {
     const publishAt = monkeyBox.publishAt*1000
     let winners: { id?: string, salt?: string, hash: string }[] = []
     if (Date.now() >= publishAt) {
-        const pulse = await getPulse(monkeyBox.publishAt * 1000)
+        const pulse = await getPulse(publishAt-60000)
         if (pulse) {
             winners = chooseHashes(
                 pulse,
-                hashes.map((elem) => elem.hash),
-                1
-            ).map((hash) => ({hash}))
+                hashes,
+                monkeyBox.winners as number
+            )
         }
     }
     return {
         id: params.id,
-        name: "$nombre",
-        isAdmin: Math.random() < 0.5,
-        observer: randomHex(16),
+        name: monkeyBox.name,
+        isAdmin: true,
+        observer: params.user,
         hashes: hashes,
         winners: winners,
-        publishAt: monkeyBox.publishAt*1000
+        winnersCount: monkeyBox.winners as number,
+        publishAt: publishAt
     }
 }

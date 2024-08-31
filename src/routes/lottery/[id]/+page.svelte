@@ -57,10 +57,8 @@
 
 <main class="bg-gray-100 flex items-center justify-center min-h-screen py-8">
 	<div class="text-center p-6 bg-white shadow-lg max-w-4xl rounded-lg w-full space-y-8">
-		{#if new Date(data.countdownDate).getTime() - Date.now()  > 0}
-			<CountDown countdownDate={data.countdownDate} />
-		{:else}
-			<p>Este sorteo ya ocurrió</p>
+		{#if new Date(data.publishAt).getTime() - Date.now()  > 0}
+			<CountDown countdownDate={data.publishAt} />
 		{/if}
 
 
