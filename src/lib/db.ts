@@ -1,7 +1,8 @@
 import Database from 'better-sqlite3';
 
-let db = new Database(':memory:');
+let db = new Database('db.sqlite');
 
+try {
 db.exec(`
 CREATE TABLE \`monkey_box\` (
     \`id\` TEXT PRIMARY KEY,
@@ -31,5 +32,8 @@ CREATE TABLE \`monkey_secrets\` (
     FOREIGN KEY(\`monkey\`) REFERENCES \`monkey\`(\`id\`)
 );
 `);
+} catch {
+    
+}
 
 export default db;
