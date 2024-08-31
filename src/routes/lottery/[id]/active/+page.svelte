@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import HashGrid from '$lib/components/HashGrid.svelte';
-	// import { verify } from '$lib/crypto';
+	import { verify } from '$lib/crypto';
 
 	export let data: PageData;
 
