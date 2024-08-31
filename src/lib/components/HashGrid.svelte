@@ -1,10 +1,11 @@
 <script lang="ts">
 	export let hashes: { id?: string, salt?: string, hash: string }[] = [];
+	export let color: string = 'blue';
 </script>
 
 <div class="grid grid-cols-3 gap-3 w-full">
 	{#each hashes as hash}
-		<div class={`hash-container p-4 bg-blue-100 rounded text-blue-800 w-full`}>
+		<div class={'hash-container p-4 rounded w-full text-'+color+'-800 bg-'+color+'-100'}>
 			<span class="tooltip">{hash.hash}</span>
 			{#if hash.salt || hash.id}
 				<div class="flex flex-col items-start w-full">
