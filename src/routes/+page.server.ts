@@ -14,6 +14,7 @@ export const actions = {
         console.log(formData);
         const name: any = formData.get("nombre");
         const winners: any = formData.get("numGanadores");
+        const privacyLevel = formData.get("privacy");
         const ids = formData.get("ids").split("\r\n");
         const parsedIds = ids.filter((id) => id.trim() !== "");
         const idsSet = new Set(parsedIds);
@@ -53,9 +54,22 @@ export const actions = {
             };
         }
 
+        let privacy = Privacy.Public;
+
+        if (privacyLevel === "private") {
+            privacy = Privacy.Private;
+        }
+
+        if (privacyLevel === "semi-private") {
+            privacy = Privacy.SemiPrivate;
+        }
+
+        console.log(privacy);
+
+
         const mbox = MonkeyBox.create(
             name,
-            Privacy.Public,
+            privacy,
             winners,
             publishAt
         )

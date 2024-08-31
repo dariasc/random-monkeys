@@ -3,6 +3,7 @@
 
 	let selectedDate = '';
 	let selectedTime = '';
+	let selectedPrivacy = 'public'; // Initialize privacy
 
 	let selectedOffsetHours = 0; // Initialize offset hours
 	let selectedOffsetMinutes = 0; // Initialize offset minutes
@@ -74,6 +75,21 @@
 					max="59"
 					required
 				/>
+			</div>
+			
+			<div>
+				<label for="privacy" class="block text-blue-500 mb-1">Privacy:</label>
+				<select
+					id="privacy"
+					name="privacy"
+					bind:value={selectedPrivacy}
+					class="border border-gray-300 rounded-lg py-2 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
+					required
+				>
+					<option value="public">Público</option>
+					<option value="semi-private">Semi-Público</option>
+					<option value="private">Privado</option>
+				</select>
 			</div>
 		</div>
 
