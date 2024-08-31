@@ -77,8 +77,8 @@
 			<h2 class="text-2xl font-bold text-blue-600 mb-2">Listado de participantes:</h2>
 			<textarea
 				on:input={autoResize}
-				id="nombre"
-				name="nombre"
+				id="ids"
+				name="ids"
 				placeholder="IDs de Participantes (uno por línea)"
 				class="p-2 border border-gray-300 rounded-md w-full h-auto"
 				required
