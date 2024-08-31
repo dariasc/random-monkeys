@@ -1,18 +1,25 @@
-<script>
-	export let hashes = [];
+<script lang="ts">
+	export let hashes: { id: string, salt: string, hash: string }[] = [];
 </script>
 
 <div class="grid grid-cols-3 gap-3 w-full">
 	{#each hashes as hash}
-		<div class="hash-container flex flex-col items-center p-4 bg-blue-100 rounded text-blue-800 w-full">
-			<div>{#if hash.salt}<strong>Hash: </strong>{/if}{hash.hash.slice(0, 16)}</div>
+		<div class={`hash-container p-4 bg-blue-100 rounded text-blue-800 w-full`}>
 			<span class="tooltip">{hash.hash}</span>
-			{#if hash.id}
-				<div><strong>ID: </strong>{hash.id}</div>
+			{#if hash.salt || hash.id}
+				<div class="flex flex-col items-start w-full">
+					{#if hash.id}
+						<div><strong>ID: </strong>{hash.id}</div>
+					{/if}
+					{#if hash.salt}
+						<div><strong>Salt: </strong>{hash.salt}</div>
+					{/if}
+						<div><strong>Hash: </strong>{hash.hash.slice(0, 16)}</div>
+				</div>
+			{:else}
+				<div>{hash.hash.slice(0, 16)}</div>
 			{/if}
-			{#if hash.salt}
-				<div><strong>Salt: </strong>{hash.salt}</div>
-			{/if}
+
 		</div>
 	{/each}
 </div>
@@ -34,8 +41,7 @@
 		position: absolute;
 		z-index: 1;
 		bottom: 100%; /* Position the tooltip above the text */
-		left: 50%;
-		margin-left: -60px; /* Center the tooltip */
+		transform: translateX(-50%);
 		opacity: 0;
 		transition: opacity 0.3s;
 		white-space: nowrap; /* Prevent tooltip text from wrapping */
