@@ -106,18 +106,18 @@
 			{/if}
 		{/if}
 		
-
-		<div>
-			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
-			<HashGrid hashes={data.hashes} />
-		</div>
-
         {#if data.winners.length > 0}
         <div>
             <h2 class="text-2xl font-bold text-blue-600 mb-2">Ganadores</h2>
             <HashGrid hashes={data.winners} />      
         </div>
         {/if}
+
+		<div>
+			<h2 class="text-2xl font-bold text-blue-600 mb-2">Participantes:</h2>
+			<HashGrid hashes={data.hashes} />
+		</div>
+
         <div class="p-3">
             <button 
                 on:click={downloadCSV}
