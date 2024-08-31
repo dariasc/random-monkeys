@@ -40,11 +40,11 @@ export const actions = {
             publishAt
         )
     
-        for (const id in idsSet) {
+        idsSet.forEach(async (id) => {
             const magia = await generateHashes([id]);
             const monkey = Monkey.create(mbox, id, magia[0].hash);
             MonkeySecrets.create(monkey, magia[0].salt);
-        }
+        })
 
         const admin = User.create(UserType.Admin, mbox);
 
