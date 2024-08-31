@@ -2,45 +2,80 @@ import db from '$lib/db';
 import { compare, genSaltSync, hashSync } from "bcrypt";
 import { randomUUID, type UUID } from "crypto";
 
-export class User {
+export enum Privacy {
+    Public = 'Public',
+    SemiPrivate = 'SemiPrivate',
+    Private = 'Private'
+}
+
+export class MonkeyBox {
     public id: UUID;
-    public username: string;
-    private passwordHash: string;
+    public privacy: Privacy;
+    public publishAt: EpochTimeStamp;
 
-    private constructor(id: UUID, username: string, hash: string) {
+    private constructor(id: UUID, privacy: Privacy, publishAt: EpochTimeStamp) {
         this.id = id;
-        this.username = username;
-        this.passwordHash = hash;
+        this.privacy = privacy;
+        this.publishAt = publishAt;
     }
 
-
-    public static insert(username: string, password: string) : User | undefined {
-        let id = randomUUID();
-        let salt = genSaltSync(10);
-        let passwordHash = hashSync(password, salt);
-
-        const insert_stmt = db.prepare('INSERT INTO `user`(`id`, `username`, `password`) VALUES (?,?,?)');
+    public static get(id: UUID) : MonkeyBox {
+        const stmt = db.prepare('SELECT * FROM `monkey_box` WHERE `id` = ?');
+        const row: any = stmt.get(id.toLowerCase());
         
-        let result;
-        try {
-            console.log('CP1');
-            result = insert_stmt.run(id, username, passwordHash);
-            console.log('CP2');
-        } catch (error) {
-            return undefined;
-        }
-
-        if (result.changes == 0) {
-            return undefined;
-        }
-        console.log('CP3');
-
-        return new User(id, username, passwordHash)
+        const privacy : keyof typeof Privacy = row.privacy;
+        return new MonkeyBox(row.id, Privacy[privacy], row.publish_at);
     }
 
-    public static async login(username: string, password: string) : Promise<User | undefined> {
-        const login_stmt = db.prepare('SELECT * FROM `user` WHERE `username` = ?');
-        const row : any = login_stmt.get(username)
+    public static create(privacy: Privacy, publishAt: EpochTimeStamp) {
+        let id = randomUUID();
+
+        const stmt = db.prepare('INSERT INTO `monkey_box`(`id`, `privacy`, `publish_at`) VALUES (?,?,?)');
+        const result = stmt.run(id, privacy.toString(), publishAt);
+    
+        return new MonkeyBox(id, privacy, publishAt);
+    }
+}
+
+export enum UserType {
+    Admin = 'Admin',
+    Observer = 'Observer'
+}
+
+export class User {
+    private key: UUID;
+    public type: UserType;
+    public box: MonkeyBox;
+
+    private constructor(key: UUID, type: UserType, box: MonkeyBox) {
+        this.key = key;
+        this.type = type;
+        this.box = box;
+    }
+
+
+    public static create(type: UserType, box: MonkeyBox) : User {
+        let key = randomUUID();
+
+        const stmt = db.prepare('INSERT INTO `user`(`key`, `type`, `box`) VALUES (?,?,?)');
+        
+        const result = stmt.run(key, type.toString(), box.id);
+
+        return new User(key, type, box);
+    }
+
+    public static get(key: UUID, box?: MonkeyBox) : User {
+        const stmt = db.prepare('SELECT * FROM `user` WHERE `key` = ?');
+        
+        const row : any = stmt.get(key)
+
+        if (box == undefined) {
+            box = MonkeyBox.get(row.box);
+        }
+        
+        return new User(row.key, UserType[row.type as keyof typeof UserType], box);
+    }
+}
 
         if (row == undefined)
             return undefined;
