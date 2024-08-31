@@ -1,3 +1,13 @@
+function arrayBufferToHex(buffer: ArrayBuffer) {
+  const byteArray = new Uint8Array(buffer);
+  let hexString = '';
+  for (let i = 0; i < byteArray.length; i++) {
+    let hex = byteArray[i].toString(16).padStart(2, '0');
+    hexString += hex;
+  }
+  return hexString;
+}
+
 function splitmix32(a: number) {
   return function() {
     a |= 0;
@@ -27,13 +37,13 @@ function chooseHashes(seed: string, hashes: string[], k: number) {
 function generateSalt() {
   const array = new Uint8Array(8);
   const salt = crypto.getRandomValues(array)
-  return Buffer.from(salt).toString('hex')
+  return arrayBufferToHex(salt)
 }
 
-function generateHashes(ids: string[]) {
-  return ids.map((id) => {
+async function generateHashes(ids: string[]) {
+  return ids.map(async (id) => {
     const salt = generateSalt()
-    const hash = hashUser(id, salt)
+    const hash = await hashUser(id, salt)
     return {
       id,
       salt,
@@ -45,7 +55,7 @@ function generateHashes(ids: string[]) {
 async function hashUser(id: string, salt: string) {
   const msg = new TextEncoder().encode(id + salt)
   const hash = await crypto.subtle.digest("SHA-256", msg)
-  return Buffer.from(hash).toString("hex")
+  return arrayBufferToHex(hash)
 }
 
 async function verify(hashes: string[], id: string, salt: string) {
