@@ -1,38 +1,17 @@
-# create-svelte
+# MonkeyBox
+Lotería que utiliza aleatoriedad verificable para garantizar transparencia.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Posee tres esquemas de privacidad con distintos grados de verificabilidad.
 
-## Creating a project
+- Lotería pública: La lista de participantes y ganadores es pública, por lo que todo el sistema es completamente verificable.
+- Lotería semi-pública: La lista de participantes es pública, la aleatoriedad es verificable y se le da acceso a entes externos para que puedan verificar la lista de participantes.
+- Lotería semi-privada: Cada usuario puede verificar que fue inscrito correctamente y revisar su resultado, pero no conoce información sobre los otros participantes ni se puede verificar la correctitud del resto de la lista. La aleatoriedad sigue siendo verificable.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+|                                                | Privada | Semi-pública | Pública |
+|------------------------------------------------|---------|--------------|---------|
+| Todos saben cuantos participan                 |    ✅    |       ✅      |    ✅    |
+| Se puede verificar el random                   |    ✅    |       ✅      |    ✅    |
+| Cada usuario puede demostrar que ganó o perdió |    ✅    |       ✅      |    ✅    |
+| Todos saben quiénes participan                 |         |       ✅      |    ✅    |
+| Se puede verificar el conjunto de inscritos    |         |       ✅      |    ✅    |
+| Todos saben quiénes ganaron                    |         |              |    ✅    |
